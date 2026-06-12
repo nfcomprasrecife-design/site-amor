@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Para Clara ❤️</title>
+
+<style>
+    body {
+        margin: 0;
+        background: linear-gradient(135deg, #ff4d6d, #ff758f);
+        color: white;
+        font-family: 'Segoe UI', sans-serif;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .container {
+        margin-top: 100px;
+        transition: 1s;
+    }
+
+    h1 {
+        font-size: 34px;
+        font-weight: 300;
+        letter-spacing: 1px;
+        text-shadow: 0 0 15px rgba(255,255,255,0.6);
+        animation: fade 2s ease;
+    }
+
+    @keyframes fade {
+        from {opacity: 0; transform: translateY(20px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
+
+    button {
+        padding: 15px 30px;
+        font-size: 16px;
+        border: none;
+        border-radius: 30px;
+        background: white;
+        color: #ff4d6d;
+        cursor: pointer;
+        transition: 0.3s;
+        margin: 10px;
+    }
+
+    button:hover {
+        transform: scale(1.1);
+    }
+
+    .heart {
+        position: absolute;
+        color: rgba(255,255,255,0.5);
+        animation: float 6s linear infinite;
+    }
+
+    @keyframes float {
+        from { transform: translateY(100vh); }
+        to { transform: translateY(-10vh); }
+    }
+
+    .foto {
+        width: 260px;
+        border-radius: 20px;
+        margin-top: 30px;
+        opacity: 0;
+        transform: scale(0.7) rotate(-5deg);
+        transition: all 2s ease;
+        box-shadow: 0 0 40px rgba(255,255,255,0.9);
+    }
+
+    .mostrar {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+
+    .brilho {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, rgba(255,255,255,0.2), transparent);
+        pointer-events: none;
+    }
+</style>
+
+</head>
+
+<body>
+
+<div class="brilho"></div>
+
+<div class="container" id="conteudo">
+    <h1>Sistema iniciado...</h1>
+    <button onclick="iniciar()">Iniciar</button>
+</div>
+
+<img src="foto.jpg" id="foto" class="foto">
+
+<audio id="musica" loop>
+    <source src="cant.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+function iniciar() {
+
+    let audio = document.getElementById("musica");
+
+    audio.load();
+    audio.volume = 0.0;
+
+    audio.play().then(() => {
+
+        // Fade-in da música
+        let vol = 0;
+        let fade = setInterval(() => {
+            if (vol < 0.5) {
+                vol += 0.02;
+                audio.volume = vol;
+            } else {
+                clearInterval(fade);
+            }
+        }, 200);
+
+    }).catch(() => {
+
+        // fallback: tocar no próximo clique
+        document.body.addEventListener("click", () => {
+            audio.play();
+        }, { once: true });
+
+    });
+
+    trocarTexto("Inicializando sistema...", 0);
+    trocarTexto("Sincronizando memórias...", 2500);
+    trocarTexto("Buscando algo especial...", 5000);
+    trocarTexto("Clara Lima ❤️", 7500);
+    trocarTexto("Eu te amo desde a outra vida...", 10000);
+    trocarTexto("E escolheria você em todas elas ❤️", 12500);
+
+    setTimeout(() => {
+        document.getElementById("foto").classList.add("mostrar");
+    }, 14000);
+
+    setTimeout(() => {
+        document.getElementById("conteudo").innerHTML = `
+            <h1>Vamos continuar a nossa história? ❤️</h1>
+            <button onclick="resposta()">Sim 💖</button>
+            <button id="nao" onmouseover="fugir()">Não 😄</button>
+        `;
+    }, 17000);
+
+    criarCoracoes();
+}
+
+function resposta() {
+
+    let conteudo = document.getElementById("conteudo");
+
+    conteudo.innerHTML = "<h1>Eu sabia... ❤️</h1>";
+
+    setTimeout(() => {
+        conteudo.innerHTML = "<h1>A gente já escolheu um ao outro faz tempo...</h1>";
+    }, 2500);
+
+    setTimeout(() => {
+        conteudo.innerHTML = "<h1>Mas faltava um detalhe...</h1>";
+    }, 7500);
+
+    setTimeout(() => {
+        conteudo.innerHTML = "<h1>Algo pra representar tudo isso 💫</h1>";
+    }, 10000);
+
+    setTimeout(() => {
+        conteudo.innerHTML = "<h1>Clara Lima... ❤️</h1>";
+    }, 12500);
+
+    setTimeout(() => {
+        conteudo.innerHTML = "<h1>Essas alianças não são um começo...</h1>";
+    }, 15000);
+
+    setTimeout(() => {
+        conteudo.innerHTML = "<h1>São a continuação da nossa história 💍</h1>";
+    }, 17500);
+
+    setTimeout(() => {
+        conteudo.innerHTML = "<h1>E um símbolo do quanto eu escolho você todos os dias ❤️</h1>";
+    }, 20000);
+
+}
+
+function fugir() {
+    let botao = document.getElementById("nao");
+
+    let x = Math.random() * (window.innerWidth - 150);
+    let y = Math.random() * (window.innerHeight - 50);
+
+    botao.style.position = "absolute";
+    botao.style.left = x + "px";
+    botao.style.top = y + "px";
+}
+
+function trocarTexto(texto, tempo) {
+    setTimeout(() => {
+        document.getElementById("conteudo").innerHTML =
+            "<h1>" + texto + "</h1>";
+    }, tempo);
+}
+
+function criarCoracoes() {
+    setInterval(() => {
+        let heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (Math.random() * 20 + 12) + "px";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 6000);
+    }, 250);
+}
+
+</script>
+
+</body>
+</html>
